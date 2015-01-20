@@ -6,18 +6,19 @@ import thread
 # serve the client by echoing each message with my name
 def serve_client(clientSock):
 
-    clientSock.sendall("Press Enter on Empty Line to Exit\r\n")
+    try:
+        clientSock.sendall("Press Enter on Empty Line to Exit\r\n")
 
-    while True:
-        data = clientSock.recv(1024).strip()
-        reply = data + " Konrad\r\n"
+        while True:
+            data = clientSock.recv(1024).strip()
+            reply = data + " Konrad\r\n"
 
-        if not data:
-            break
+            if not data:
+                break
 
-        clientSock.sendall(reply)
-
-    clientSock.close()
+            clientSock.sendall(reply)
+    finally:
+        clientSock.close()
 
 def main():
 
